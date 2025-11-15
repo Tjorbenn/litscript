@@ -7,8 +7,8 @@
  * 
  * For weavers, we have a concrete class for each output format (MD or HTML), 
  * whereas translator are specialized for input format. We have a separate 
- * translator for TypeScript, Markdown, CSS/Less, etc. You can even write a 
- * new translator for an additional input format.
+ * translator for TypeScript, Markdown, CSS/Less, Typst, etc. You can even 
+ * write a new translator for an additional input format.
  */
 //#region -c translators imports and exports
 import * as ts from 'typescript'
@@ -17,12 +17,14 @@ import * as tt from './ts-translator'
 import * as mt from './md-translator'
 import * as tht from './ts-html-translator'
 import * as jdt from './jsdoc-translator'
+import * as tyt from './typst-translator'
 import * as cfg from '../config'
 
 export * from './base-translator'
 export * from './ts-translator'
 export * from './md-translator'
 export * from './ts-html-translator'
+export * from './typst-translator'
 //#endregion
 /**
  * ## Registering Translators
@@ -43,7 +45,8 @@ type TranslatorMap = {
  */
 const translators: TranslatorMap = {
     "\.md$": () => new mt.MdTranslator(),
-    "\.((c|le|sc)ss|jsonc?)$": () => new jdt.JsDocTranslator()
+    "\.((c|le|sc)ss|jsonc?)$": () => new jdt.JsDocTranslator(),
+    "\.typ$": () => new tyt.TypstTranslator()
 }
 /**
  * To register a new translator call the following function. It just adds the
