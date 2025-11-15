@@ -112,8 +112,10 @@ export function allDependencies(moduleName: string): DependencyGraph {
             let depName = module.dependencies[i]
             if (!res[depName]) {
                 let dep = dependencyGraph[depName]
-                res[depName] = dep
-                addDeps(dep)
+                if (dep) {
+                    res[depName] = dep
+                    addDeps(dep)
+                }
             }
         }
     }
